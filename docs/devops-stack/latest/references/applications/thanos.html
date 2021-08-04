@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>csi-secrets-store-provider-azure :: DevOps Stack</title>
+    <title>thanos :: DevOps Stack</title>
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -174,7 +174,7 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="cert-manager.html">Cert Manager</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="3">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="csi-secrets-store-provider-azure.html">CSI Secrets Store Provider Azure</a>
   </li>
   <li class="nav-item" data-depth="3">
@@ -281,67 +281,35 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../../index.html">DevOps Stack</a></li>
-    <li>References</li>
-    <li><a href="#ROOT:references/applications.adoc">Applications</a></li>
-    <li><a href="csi-secrets-store-provider-azure.html">CSI Secrets Store Provider Azure</a></li>
+    <li><a href="thanos.html">thanos</a></li>
   </ul>
 </nav>
 <div class="page-versions">
   <button class="version-menu-toggle" title="Show other versions of page">latest</button>
   <div class="version-menu">
-    <a class="version is-current" href="csi-secrets-store-provider-azure.html">latest</a>
-    <a class="version" href="../../../0.33.0/references/applications/csi-secrets-store-provider-azure.html">0.33.0</a>
-    <a class="version" href="../../../0.32.0/references/applications/csi-secrets-store-provider-azure.html">0.32.0</a>
-    <a class="version" href="../../../0.31.0/references/applications/csi-secrets-store-provider-azure.html">0.31.0</a>
+    <a class="version is-current" href="thanos.html">latest</a>
+    <a class="version is-missing" href="../../../0.33.0/index.html">0.33.0</a>
+    <a class="version is-missing" href="../../../0.32.0/index.html">0.32.0</a>
+    <a class="version is-missing" href="../../../0.31.0/index.html">0.31.0</a>
     <a class="version is-missing" href="../../../0.30.0/index.html">0.30.0</a>
   </div>
 </div>
-  <div class="edit-this-page"><a href="https://github.com/JGodin-C2C/devops-stack/edit/master/docs/modules/ROOT/pages/references/applications/csi-secrets-store-provider-azure.adoc"><i class="fa fa-github-alt"></i>&nbsp;Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/JGodin-C2C/devops-stack/edit/master/docs/modules/ROOT/pages/references/applications/thanos.adoc"><i class="fa fa-github-alt"></i>&nbsp;Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">csi-secrets-store-provider-azure</h1>
-<div id="preamble">
-<div class="sectionbody">
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-This chart is enabled only when deploying DevOps Stack to AKS.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>This chart installs a driver to interface with Azure Key Vault provider.
-This driver enables:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>getting secrets from Azure Key Vault</p>
-</li>
-<li>
-<p>mounting secrets into Kubernetes pods</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
+<h1 class="page">thanos</h1>
 <div class="sect1">
 <h2 id="_requirements"><a class="anchor" href="#_requirements"></a>Requirements</h2>
 <div class="sectionbody">
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 45%;">
-<col style="width: 22%;">
-<col style="width: 33%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
 </colgroup>
 <thead>
 <tr>
@@ -352,9 +320,38 @@ This driver enables:</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://raw.githubusercontent.com/Azure/secrets-store-csi-driver-provider-azure/master/charts" class="bare">https://raw.githubusercontent.com/Azure/secrets-store-csi-driver-provider-azure/master/charts</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">csi-secrets-store-provider-azure</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0.0.19</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://charts.bitnami.com/bitnami" class="bare">https://charts.bitnami.com/bitnami</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">thanos</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3.14.0</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_values"><a class="anchor" href="#_values"></a>Values</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Key</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">thanos</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{}</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
 </table>
@@ -370,7 +367,7 @@ This driver enables:</p>
 <script>
   window.antora = window.antora || {}
   window.antora.basePath = '../../../..'
-  window.antora.pagePath = '/devops-stack/latest/references/applications/csi-secrets-store-provider-azure.html'
+  window.antora.pagePath = '/devops-stack/latest/references/applications/thanos.html'
 </script>
 <script src="../../../../_/js/site.js"></script>
 <script async src="../../../../_/js/vendor/terraform.js"></script>
