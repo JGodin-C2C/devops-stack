@@ -79,6 +79,7 @@ velero:
   configuration:
     provider: aws
     backupStorageLocation:
+      caCert: ${root_cert}
       bucket: velero
       config:
         region: minio
