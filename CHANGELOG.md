@@ -1,5 +1,34 @@
 # Changelog
 
+## [0.46.0](https://www.github.com/JGodin-C2C/devops-stack/compare/v0.45.0...v0.46.0) (2021-09-16)
+
+
+### Features
+
+* Add init container pluging for Velero ([aaa39af](https://www.github.com/JGodin-C2C/devops-stack/commit/aaa39afce16c82b9d3fd9081f82e1bbfbc2cbc96))
+* add the Cacert for velero ([62605e3](https://www.github.com/JGodin-C2C/devops-stack/commit/62605e36dac675e51a5483b5ef275b69b6255d4f))
+* Add velero configuration example for k3s ([60f7cb8](https://www.github.com/JGodin-C2C/devops-stack/commit/60f7cb8c9e0993214f50f4508495a363172867b4))
+* Add velero deployment as opt-in ([5a416a1](https://www.github.com/JGodin-C2C/devops-stack/commit/5a416a1441d2732945c675032fed054fcfb0a949))
+* **aks:** add support for node pools in AKS ([edb9813](https://www.github.com/JGodin-C2C/devops-stack/commit/edb981339ef566e21ae16338bc7e6c17699da9d9))
+* allow to disable wait_for_app_of_apps ([a01303b](https://www.github.com/JGodin-C2C/devops-stack/commit/a01303bcce252e40a2cf063d7fb2bd58aa4e58c2))
+* **antora:** use lunr generator in github action for building documentation search index ([2307150](https://www.github.com/JGodin-C2C/devops-stack/commit/23071502923435ac4aef026858f3ae3f49aa748b))
+* **aws:** add test example ([7ddef46](https://www.github.com/JGodin-C2C/devops-stack/commit/7ddef46ae4c07d57bea85355059bb7980adb5c63))
+* **aws:** use nip.io by default ([947380c](https://www.github.com/JGodin-C2C/devops-stack/commit/947380c9a2db763d380e3e11cc7d9384bbee4978))
+* Create minio bucket for velero at statrup ([b89e7ee](https://www.github.com/JGodin-C2C/devops-stack/commit/b89e7ee6efc1a8051529f9537202fd40204f70ba))
+* output minio access keys ([4a7a2b5](https://www.github.com/JGodin-C2C/devops-stack/commit/4a7a2b569d6c10faf7fa71ec1bc2670ee2e53abf))
+* randomize argocd admin password ([1cf91f0](https://www.github.com/JGodin-C2C/devops-stack/commit/1cf91f0aee30d369bc8ea8d0ad2a43c714c18a70))
+* **sks:** add node anti-affinity on router nodes for cert-manager ([#753](https://www.github.com/JGodin-C2C/devops-stack/issues/753)) ([dc3a4a3](https://www.github.com/JGodin-C2C/devops-stack/commit/dc3a4a35f6b1250d852440d165b3775ce700aa6d))
+* **sks:** use Kubernetes 1.21.4 by default ([a95d813](https://www.github.com/JGodin-C2C/devops-stack/commit/a95d8135e962a03bf2a12845815af1af94cc2469))
+* **sks:** use letsencrypt-prod when there is more than 1 node pool ([#754](https://www.github.com/JGodin-C2C/devops-stack/issues/754)) ([0f8179c](https://www.github.com/JGodin-C2C/devops-stack/commit/0f8179c0d83654442e658ead302ffd5f995a563d))
+
+
+### Bug Fixes
+
+* **aws:** don't add nat gateway to cluster_endpoint_public_access_cidrs by default ([54625b0](https://www.github.com/JGodin-C2C/devops-stack/commit/54625b04199b9c9920d5bed9b43c769018093a5b))
+* **aws:** use local.base_domain instead of var.base_domain ([2583e09](https://www.github.com/JGodin-C2C/devops-stack/commit/2583e092b27651bfb60508805b972136825681af))
+* format with terraform fmt ([33a499e](https://www.github.com/JGodin-C2C/devops-stack/commit/33a499e2e6f6ec12a75b1d43f402cacbcc409869))
+* **sks:** pass down missing variables to argocd-helm ([#748](https://www.github.com/JGodin-C2C/devops-stack/issues/748)) ([97f3973](https://www.github.com/JGodin-C2C/devops-stack/commit/97f397369e558c0b7a32841cedded4027214f8c5))
+
 ## [0.45.0](https://www.github.com/camptocamp/devops-stack/compare/v0.44.0...v0.45.0) (2021-08-27)
 
 
