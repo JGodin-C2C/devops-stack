@@ -79,6 +79,9 @@
     <a class="nav-link" href="quickstart_aks.html">AKS</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="quickstart_sks.html">SKS</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="quickstart_ocp_ipi_aws.html">OpenShift (IPI) on AWS</a>
   </li>
   <li class="nav-item" data-depth="3">
@@ -133,6 +136,9 @@
     <a class="nav-link" href="continuous_delivery_gitflow_workflow.html">Continous Deployment for a Gitflow Workflow</a>
   </li>
 </ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="filebeat_logging.html">Filebeat logging</a>
   </li>
 </ul>
   </li>
@@ -371,7 +377,7 @@ module "network" {
 }
 
 module "cluster" {
- source = "git::https://github.com/camptocamp/devops-stack.git//modules/aks/azure?ref=v0.26.0"
+ source = "git::https://github.com/camptocamp/devops-stack.git//modules/aks/azure?ref=v0.47.0"
 
   vnet_subnet_id      = module.network.vnet_subnets[0]
   resource_group_name = azurerm_resource_group.this.name

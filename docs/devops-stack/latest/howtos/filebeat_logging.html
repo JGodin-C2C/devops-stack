@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Deploying the DevOps Stack to OpenShift (IPI) on AWS :: DevOps Stack</title>
+    <title>Logging with filebeat :: DevOps Stack</title>
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -81,7 +81,7 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="quickstart_sks.html">SKS</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="3">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="quickstart_ocp_ipi_aws.html">OpenShift (IPI) on AWS</a>
   </li>
   <li class="nav-item" data-depth="3">
@@ -137,7 +137,7 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="filebeat_logging.html">Filebeat logging</a>
   </li>
 </ul>
@@ -303,41 +303,31 @@
   <ul>
     <li><a href="../index.html">DevOps Stack</a></li>
     <li>Howtos</li>
-    <li><a href="../quickstart.html">Quickstarts</a></li>
-    <li><a href="quickstart_ocp_ipi_aws.html">OpenShift (IPI) on AWS</a></li>
+    <li><a href="filebeat_logging.html">Filebeat logging</a></li>
   </ul>
 </nav>
 <div class="page-versions">
   <button class="version-menu-toggle" title="Show other versions of page">latest</button>
   <div class="version-menu">
-    <a class="version is-current" href="quickstart_ocp_ipi_aws.html">latest</a>
-    <a class="version" href="../../0.33.0/howtos/quickstart_ocp_ipi_aws.html">0.33.0</a>
+    <a class="version is-current" href="filebeat_logging.html">latest</a>
+    <a class="version is-missing" href="../../0.33.0/index.html">0.33.0</a>
     <a class="version is-missing" href="../../0.32.0/index.html">0.32.0</a>
     <a class="version is-missing" href="../../0.31.0/index.html">0.31.0</a>
     <a class="version is-missing" href="../../0.30.0/index.html">0.30.0</a>
   </div>
 </div>
-  <div class="edit-this-page"><a href="https://github.com/JGodin-C2C/devops-stack/edit/master/docs/modules/ROOT/pages/howtos/quickstart_ocp_ipi_aws.adoc"><i class="fa fa-github-alt"></i>&nbsp;Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/JGodin-C2C/devops-stack/edit/master/docs/modules/ROOT/pages/howtos/filebeat_logging.adoc"><i class="fa fa-github-alt"></i>&nbsp;Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Deploying the DevOps Stack to OpenShift (IPI) on AWS</h1>
+<h1 class="page">Logging with filebeat</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-The example given below is made to work on AWS, other cloud providers such as Azure will come later.
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>If needed filebeat logging can be activated on the devops stack to send the logs of chosen pods to any of the available <a href="https://www.elastic.co/guide/en/beats/filebeat/current/configuring-output.html">outputs</a>.</p>
 </div>
 </div>
 </div>
@@ -347,265 +337,191 @@ The example given below is made to work on AWS, other cloud providers such as Az
 <div class="ulist">
 <ul>
 <li>
-<p>Access to API keys allowing to create required resources in AWS,</p>
-</li>
-<li>
-<p>Meet the requirements for OCP deployment such as SSH public key and <a href="https://cloud.redhat.com">PullSecret</a> from Red Hat,</p>
-</li>
-<li>
-<p>The <a href="https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest">openshift-install</a> binary is in your <code>$PATH</code>,</p>
-</li>
-<li>
-<p>The <a href="https://aws.amazon.com/cli/">AWS cli</a> binary is in your <code>$PATH</code>,</p>
-</li>
-<li>
-<p>Knowledge of <a href="https://terraform.io">Terraform</a> basics</p>
+<p>Devops Stack version &gt; 0.46.0</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_create_your_terraform_root_module"><a class="anchor" href="#_create_your_terraform_root_module"></a>Create your Terraform root module</h2>
+<h2 id="_activate_filebeat"><a class="anchor" href="#_activate_filebeat"></a>Activate filebeat</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Camptocamp&#8217;s DevOps Stack is instantiated using a Terraform composition module.</p>
-</div>
-<div class="paragraph">
-<p>Here is a minimal working example:</p>
+<p>The deployment of filebeat is part of the loki-stack chart and needs to be set in the <strong>app_of_apps_values_overrides</strong> in your terraform modules :</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-hcl hljs" data-lang="hcl"># terraform/main.tf
-
-locals {
-  install_config_path = "install-config.yaml"
-  region              = "eu-west-1"
-  base_domain         = "example.com"
-  cluster_name        = "ocp"
-}
-
-
-module "cluster" {
-  source              = "git::https://github.com/camptocamp/devops-stack.git//modules/openshift4/aws?ref=v0.40.0"
-  install_config_path = local.install_config_path
-  base_domain         = local.base_domain
-  cluster_name        = local.cluster_name
-  region              = local.region
+<pre class="highlightjs highlight"><code class="language-hcl hljs" data-lang="hcl"> app_of_apps_values_overrides =  &lt;&lt;EOT
+---
+loki-stack:
+  filebeat:
+    enabled: true
+    filebeatConfig:
+      filebeat.yml: |
+        filebeat.autodiscover:
+          providers:
+            - type: kubernetes
+              hints.enabled: true
+              hints.default_config.enabled: false
+  EOT
 }</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Only the pods with the annotation <strong>co.elastic.logs/enabled</strong> set to "true" will be ingested.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You can also filter the lines with the <strong>include_lines</strong> annotation, for example :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">podAnnotations:
+  co.elastic.logs/enabled: "true"
+  co.elastic.logs/include_lines: "[INFO].*"</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Then you need a valid configuration for filebeat to send the logs to an output, see some examples below.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configuration_examples"><a class="anchor" href="#_configuration_examples"></a>Configuration examples</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_kafka_with_credentials"><a class="anchor" href="#_kafka_with_credentials"></a>Kafka with credentials :</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-hcl hljs" data-lang="hcl"> app_of_apps_values_overrides =  &lt;&lt;EOT
+---
+loki-stack:
+  filebeat:
+    enabled: true
+    filebeatConfig:
+      filebeat.yml: |
+        filebeat.autodiscover:
+          providers:
+            - type: kubernetes
+              hints.enabled: true
+              hints.default_config.enabled: false
+        output.file:
+          enabled: false
+        output.kafka:
+          topic: "devopstack"
+          hosts:
+             - "kafka-broker-0.logs.test.com"
+             - "kafka-broker-1.logs.test.com"
+          username: "user"
+          password: "secret"
+          sasl.mechanism: "SCRAM-SHA-512"
+          ssl.enabled: true
+  EOT
+}</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_terraform_outputs"><a class="anchor" href="#_terraform_outputs"></a>Terraform Outputs</h3>
-<div class="paragraph">
-<p>Define outputs:</p>
+<h3 id="_kafka_with_tls_client_certificates"><a class="anchor" href="#_kafka_with_tls_client_certificates"></a>Kafka with TLS client certificates :</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-hcl hljs" data-lang="hcl">  app_of_apps_values_overrides =  &lt;&lt;EOT
+---
+loki-stack:
+  filebeat:
+    enabled: true
+    filebeatConfig:
+      filebeat.yml: |
+        filebeat.autodiscover:
+          providers:
+            - type: kubernetes
+              hints.enabled: true
+              hints.default_config.enabled: false
+        output.file:
+          enabled: false
+        output.kafka:
+          topic: "devopstack"
+          hosts:
+            - "kafka-broker-0.elk.camptocamp.com:9092"
+            - "kafka-broker-1.elk.camptocamp.com:9092"
+            - "kafka-broker-2.elk.camptocamp.com:9092"
+          ssl.enabled: true
+          ssl.certificate_authorities: "/usr/share/filebeat/certs/ca.crt"
+          ssl.certificate: "/usr/share/filebeat/certs/tls.crt"
+          ssl.key: "/usr/share/filebeat/certs/tls.key"
+    secretMounts:
+      - name: filebeat-certificates
+        secretName: filebeat-certificates
+        path: /usr/share/filebeat/certs
+  EOT
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If you are bootstrapping a devops stack you can inject the certificates and key directly in the values, for example:
+</td>
+</tr>
+</table>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-hcl hljs" data-lang="hcl"># terraform/outputs.tf
-
-output "argocd_auth_token" {
-  sensitive = true
-  value     = module.cluster.argocd_auth_token
-}
-
-output "kubeconfig" {
-  sensitive = true
-  value     = module.cluster.kubeconfig
-}
-
-output "argocd_server" {
-  value = module.cluster.argocd_server
-}
-
-output "grafana_admin_password" {
-  sensitive = true
-  value     = module.cluster.grafana_admin_password
-}
-
-output "console_url" {
-  value = module.cluster.console_url
-}
-
-output "kubeadmin_password" {
-  value = module.cluster.kubeadmin_password
-  sensitive = true
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">      filebeat.yml: |
+          [...]
+          ssl.certificate: "/usr/share/filebeat/tls.crt"
+          ssl.key: "/usr/share/filebeat/tls.key"
+      tls.crt: |
+       -----BEGIN CERTIFICATE-----
+       MIIE...
+       -----END CERTIFICATE-----
+      tls.key: |
+       -----BEGIN PRIVATE KEY-----
+       MIIE..
+       -----END PRIVATE KEY-----
+  EOT
 }</code></pre>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_terraform_backend"><a class="anchor" href="#_terraform_backend"></a>Terraform Backend</h3>
-<div class="paragraph">
-<p>If you wish to
-<a href="https://www.terraform.io/docs/language/state/remote.html">collaborate</a>,
-define a backend to store your state:</p>
-</div>
+<h3 id="_deploy_specific_version"><a class="anchor" href="#_deploy_specific_version"></a>Deploy specific version :</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-hcl hljs" data-lang="hcl"># terraform/versions.tf
-
-terraform {
-  backend "remote" {
-    organization = "example_corp"
-
-    workspaces {
-      name = "my-app-prod"
-    }
-  }
+<pre class="highlightjs highlight"><code class="language-hcl hljs" data-lang="hcl">  app_of_apps_values_overrides =  &lt;&lt;EOT
+---
+loki-stack:
+  filebeat:
+    enabled: true
+    image: 'docker.elastic.co/beats/filebeat'
+    imageTag: '7.15.0'
+  EOT
 }</code></pre>
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_create_your_ipi_response_file"><a class="anchor" href="#_create_your_ipi_response_file"></a>Create your IPI Response File</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Create the <code>install-config.yaml</code> file required to perform silent install of OpenShift:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"># install-config.yaml
-
-apiVersion: v1
-baseDomain: example.com
-controlPlane:
-  hyperthreading: Enabled
-  name: master
-  platform:
-    aws:
-      zones:
-      - eu-west-1a
-      - eu-west-1b
-      - eu-west-1c
-  replicas: 3
-compute:
-- hyperthreading: Enabled
-  name: worker
-  platform:
-    aws:
-      zones:
-      - eu-west-1a
-      - eu-west-1b
-      - eu-west-1c
-  replicas: 3
-metadata:
-  name: ocp
-platform:
-  aws:
-    region: eu-west-1
-pullSecret: '&lt;PULL SECRET KEY&gt;'
-fips: false
-sshKey: &lt;SSH KEY&gt;</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_deploying_from_your_workstation"><a class="anchor" href="#_deploying_from_your_workstation"></a>Deploying from your workstation</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Even if one of the purpose of the DevOps Stack is to do everything in pipelines,
-you could deploy your cluster from your workstation using the Terraform CLI:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ cd terraform
-$ terraform init
-$ terraform apply</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_deployment_process"><a class="anchor" href="#_deployment_process"></a>Deployment Process</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>OpenShift is deployed using the <code>openshift-install</code> binary, which embarks a nested Terraform version. When the DevOps Stack Terraform is running, we cannot follow the child process.</p>
-</div>
-<div class="paragraph">
-<p>Thus, we can track the deployment progress in <code>terraform/&lt;CLUSTER NAME&gt;/.openshift_install.log</code></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ tail -f terraform/&lt;CLUSTER NAME&gt;/.openshift_install.log</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_get_kubeconfig"><a class="anchor" href="#_get_kubeconfig"></a>Get kubeconfig</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Retrieve the Kubeconfig file:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ terraform output -json kubeconfig | jq -r .</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>or</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ export KUBECONFIG=&lt;CLUSTER NAME&gt;/auth/kubeconfig</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>You should then be able to use <code>oc</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_get_the_kubeadmin_password"><a class="anchor" href="#_get_the_kubeadmin_password"></a>Get the Kubeadmin Password</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Retrieve the kubeadmin password:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ cat &lt;CLUSTER NAME&gt;/auth/kubeadmin-password</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_inspect_the_devops_stack_applications"><a class="anchor" href="#_inspect_the_devops_stack_applications"></a>Inspect the DevOps Stack Applications</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>You can view the ingress routes for the various DevOps Stack Applications with:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code>$ oc get route --all-namespaces</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_destroy_the_cluster"><a class="anchor" href="#_destroy_the_cluster"></a>Destroy the cluster</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ terraform destroy</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_reference"><a class="anchor" href="#_reference"></a>Reference</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>See the <a href="../references/terraform_modules/openshift4/aws.html" class="page">AWS OCP reference page</a>.</p>
-</div>
-<div class="paragraph">
-<p>See the <a href="https://github.com/openshift/installer/blob/master/docs/user/customization.md">install-config.yaml customization</a>.</p>
-</div>
-<div class="paragraph">
-<p>See the <a href="https://docs.openshift.com/container-platform/4.7/installing/installing_aws/installing-aws-customizations.html#installing-aws-customizations">AWS Configuration for OCP IPI</a>.</p>
 </div>
 </div>
 </div>
@@ -619,7 +535,7 @@ $ terraform apply</code></pre>
 <script>
   window.antora = window.antora || {}
   window.antora.basePath = '../../..'
-  window.antora.pagePath = '/devops-stack/latest/howtos/quickstart_ocp_ipi_aws.html'
+  window.antora.pagePath = '/devops-stack/latest/howtos/filebeat_logging.html'
 </script>
 <script src="../../../_/js/site.js"></script>
 <script src="../../../_/js/vendor/lunr.js"></script>

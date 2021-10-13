@@ -79,6 +79,9 @@
     <a class="nav-link" href="quickstart_aks.html">AKS</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="quickstart_sks.html">SKS</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="quickstart_ocp_ipi_aws.html">OpenShift (IPI) on AWS</a>
   </li>
   <li class="nav-item" data-depth="3">
@@ -133,6 +136,9 @@
     <a class="nav-link" href="continuous_delivery_gitflow_workflow.html">Continous Deployment for a Gitflow Workflow</a>
   </li>
 </ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="filebeat_logging.html">Filebeat logging</a>
   </li>
 </ul>
   </li>
@@ -396,7 +402,7 @@ module "vpc" {
 }
 
 module "cluster" {
-  source = "git::https://github.com/camptocamp/devops-stack.git//modules/eks/aws?ref=v0.26.0"
+  source = "git::https://github.com/camptocamp/devops-stack.git//modules/eks/aws?ref=v0.47.0"
 
   cluster_name = local.cluster_name
   vpc_id       = module.vpc.vpc_id
@@ -561,7 +567,7 @@ you have to create a <code>.gitlab-ci.yml</code> file in the root level of your 
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">---
 include:
-  - https://raw.githubusercontent.com/camptocamp/devops-stack/v0.26.0/.gitlab-ci/pipeline.yaml</code></pre>
+  - https://raw.githubusercontent.com/camptocamp/devops-stack/v0.47.0/.gitlab-ci/pipeline.yaml</code></pre>
 </div>
 </div>
 </div>
