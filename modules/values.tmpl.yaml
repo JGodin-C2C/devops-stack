@@ -456,12 +456,21 @@ minio:
           - "${minio.domain}"
           - "minio.apps.${base_domain}"
   buckets:
+%{ if loki.enable }
     - name: "${loki.bucket_name}"
       policy: none
       purge: false
+%{ endif }
+%{ if metrics_server.enable }
     - name: "${metrics_archives.bucket_name}"
       policy: none
       purge: false
+%{ endif }
+%{ if velero.enable }
+    - name: velero
+      policy: none
+      purge: false
+%{ endif }
 %{ if velero.enable }
     - name: velero
       policy: none
