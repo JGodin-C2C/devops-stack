@@ -359,9 +359,8 @@ kube-prometheus-stack chart because it uses Prometheus Custom Resources.
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_requirements"><a class="anchor" href="#_requirements"></a>Requirements</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="requirements"><a class="anchor" href="#requirements"></a>Requirements</h3>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -384,16 +383,14 @@ kube-prometheus-stack chart because it uses Prometheus Custom Resources.
 </tbody>
 </table>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_values"><a class="anchor" href="#_values"></a>Values</h2>
-<div class="sectionbody">
-<table class="tableblock frame-all grid-all stretch">
+<div class="sect2">
+<h3 id="values"><a class="anchor" href="#values"></a>Values</h3>
+<table class="tableblock frame-all grid-all" style="width: 51%;">
 <colgroup>
-<col style="width: 16%;">
+<col style="width: 18%;">
 <col style="width: 18%;">
 <col style="width: 27%;">
-<col style="width: 39%;">
+<col style="width: 37%;">
 </colgroup>
 <thead>
 <tr>
@@ -413,12 +410,11 @@ kube-prometheus-stack chart because it uses Prometheus Custom Resources.
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">letsencrypt.issuers</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">object</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{"letsencrypt-prod":{"email":"<a href="mailto:letsencrypt@camptocamp.com">letsencrypt@camptocamp.com</a>","server":"https://acme-v02.api.letsencrypt.org/directory"},"letsencrypt-staging":{"email":"<a href="mailto:letsencrypt@camptocamp.com">letsencrypt@camptocamp.com</a>","server":"https://acme-staging-v02.api.letsencrypt.org/directory"}}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{"letsencrypt-prod":{"email":"letsencrypt@camptocamp.com","server":"https://acme-v02.api.letsencrypt.org/directory"},"letsencrypt-staging":{"email":"letsencrypt@camptocamp.com","server":"https://acme-staging-v02.api.letsencrypt.org/directory"}}</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ClusterIssuers configuration</p></td>
 </tr>
 </tbody>
 </table>
-</div>
 </div>
 </article>
   </div>
