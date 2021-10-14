@@ -63,11 +63,6 @@ cert-manager:
   tlsCrt: ${root_cert}
   tlsKey: ${root_key}
 
-minio:
-  buckets:
-    - name: velero
-      policy: none
-      purge: false
 velero:
   initContainers:
     - name: velero-plugin-for-aws
