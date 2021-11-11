@@ -352,8 +352,9 @@ enabled</p>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="requirements"><a class="anchor" href="#requirements"></a>Requirements</h3>
+<div class="sect1">
+<h2 id="_requirements"><a class="anchor" href="#_requirements"></a>Requirements</h2>
+<div class="sectionbody">
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -386,14 +387,16 @@ enabled</p>
 </tbody>
 </table>
 </div>
-<div class="sect2">
-<h3 id="values"><a class="anchor" href="#values"></a>Values</h3>
-<table class="tableblock frame-all grid-all" style="width: 51%;">
+</div>
+<div class="sect1">
+<h2 id="_values"><a class="anchor" href="#_values"></a>Values</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 18%;">
+<col style="width: 16%;">
 <col style="width: 18%;">
 <col style="width: 27%;">
-<col style="width: 37%;">
+<col style="width: 39%;">
 </colgroup>
 <thead>
 <tr>
@@ -407,7 +410,7 @@ enabled</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">argo-cd</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">object</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{"controller":{"metrics":{"rules":{"enabled":true,"spec":[{"alert":"ArgoAppMissing","annotations":{"description":"ArgoCD has not reported any applications data for the past 15 minutes which means that it must be down or not functioning properly.  This needs to be resolved for this cloud to continue to maintain state.\n","summary":"[ArgoCD] No reported applications"},"expr":"absent(argocd_app_info)\n","for":"15m","labels":{"severity":"critical"}},{"alert":"ArgoAppNotSynced","annotations":{"description":"The application [{{</code>\{\{\($labels.name}}<code>}} has not been synchronized for over 12 hours which means that the state of this cloud has drifted away from the state inside Git.\n","summary":"[{{</code>{{$\)labels.name}}<code>}}] Application not synchronized"},"expr":"argocd_app_info{sync_status!=\"Synced\"} == 1\n","for":"12h","labels":{"severity":"warning"}}]},"serviceMonitor":{"enabled":true}}},"repoServer":{"metrics":{"serviceMonitor":{"enabled":true}}},"server":{"metrics":{"serviceMonitor":{"enabled":true}}}}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{"controller":{"metrics":{"rules":{"enabled":true,"spec":[{"alert":"ArgoAppMissing","annotations":{"description":"ArgoCD has not reported any applications data for the past 15 minutes which means that it must be down or not functioning properly.  This needs to be resolved for this cloud to continue to maintain state.\n","summary":"[ArgoCD] No reported applications"},"expr":"absent(argocd_app_info)\n","for":"15m","labels":{"severity":"critical"}},{"alert":"ArgoAppNotSynced","annotations":{"description":"The application [{{</code>\{\{\($labels.name}}`}} has not been synchronized for over 12 hours which means that the state of this cloud has drifted away from the state inside Git.\n","summary":"[{{`{{$\)labels.name}}`}}] Application not synchronized"},"expr":"argocd_app_info{sync_status!=\"Synced\"} == 1\n","for":"12h","labels":{"severity":"warning"}}]},"serviceMonitor":{"enabled":true}}},"repoServer":{"metrics":{"serviceMonitor":{"enabled":true}}},"server":{"metrics":{"serviceMonitor":{"enabled":true}}}}`</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Values passed to the argo-cd chart</p></td>
 </tr>
 <tr>
@@ -418,6 +421,7 @@ enabled</p>
 </tr>
 </tbody>
 </table>
+</div>
 </div>
 </article>
   </div>

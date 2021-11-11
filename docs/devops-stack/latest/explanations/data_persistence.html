@@ -324,8 +324,6 @@
 </aside>
 <article class="doc">
 <h1 class="page">Data Persistence</h1>
-<div id="preamble">
-<div class="sectionbody">
 <div class="paragraph">
 <p>Although not mandatory, it is recommended to have a clear separation between
 compute workload and storage when setting up a Kubernetes cluster.</p>
@@ -339,42 +337,10 @@ compute workload and storage when setting up a Kubernetes cluster.</p>
 achieve data persistence outside of the cluster
 (using external RDBMS, NoSQL databases, or object storage).</p>
 </div>
-</div>
-</div>
-<h1 id="_synchronizing" class="sect0"><a class="anchor" href="#_synchronizing"></a>synchronizing</h1>
 <div class="paragraph">
-<p>In order to keep the cluster stateless, we will introduce a tool to synchronize
-both blue and green.</p>
-</div>
-<div class="paragraph">
-<p>This tool is velero. Started as a backup tool, cluster sync as been added as
-a use case.</p>
-</div>
-<div class="sect1">
-<h2 id="_velero"><a class="anchor" href="#_velero"></a>Velero</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>To begin using velero, you will need to settup a blob storage/S3 storage in your
-terraform code.</p>
-</div>
-<div class="paragraph">
-<p>You can then pass this structure to the devops stack to have it setted up:
-For k3s , configuration is automatic and the backups are stored in the deployed
-minio.</p>
-</div>
-<div class="paragraph">
-<p>For Azure :</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code>  velero = {
-    storage        = [storage_name]
-    container      = [containeri(Blob storage) name]
-    resource_group = [resource group]
-  }</code></pre>
-</div>
-</div>
-</div>
+<p>We thus recommend to avoid the use of storageClasses,
+which allow self provisioning of Persistent Volumes (PVs), as it breaks
+the blue/green infrastructure paradigm that the DevOps Stack supports.</p>
 </div>
 </article>
   </div>
