@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Azure AKS Terraform Module :: DevOps Stack</title>
+    <title>KinD Terraform Module :: DevOps Stack</title>
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../../../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -162,8 +162,8 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../argocd-helm.html">ArgoCD Helm</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="3">
-    <a class="nav-link" href="azure.html">Azure AKS</a>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../aks/azure.html">Azure AKS</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../eks/aws.html">AWS EKS</a>
@@ -305,38 +305,36 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../../../index.html">DevOps Stack</a></li>
-    <li>References</li>
-    <li><a href="../../terraform_modules.html">Terraform Modules</a></li>
-    <li><a href="azure.html">Azure AKS</a></li>
+    <li><a href="kind.html">KinD Terraform Module</a></li>
   </ul>
 </nav>
 <div class="page-versions">
   <button class="version-menu-toggle" title="Show other versions of page">latest</button>
   <div class="version-menu">
-    <a class="version is-current" href="azure.html">latest</a>
-    <a class="version" href="../../../../0.33.0/references/terraform_modules/aks/azure.html">0.33.0</a>
-    <a class="version" href="../../../../0.32.0/references/terraform_modules/aks/azure.html">0.32.0</a>
-    <a class="version" href="../../../../0.31.0/references/terraform_modules/aks/azure.html">0.31.0</a>
+    <a class="version is-current" href="kind.html">latest</a>
+    <a class="version is-missing" href="../../../../0.33.0/index.html">0.33.0</a>
+    <a class="version is-missing" href="../../../../0.32.0/index.html">0.32.0</a>
+    <a class="version is-missing" href="../../../../0.31.0/index.html">0.31.0</a>
     <a class="version is-missing" href="../../../../0.30.0/index.html">0.30.0</a>
   </div>
 </div>
-  <div class="edit-this-page"><a href="https://github.com/JGodin-C2C/devops-stack/edit/master/docs/modules/ROOT/pages/references/terraform_modules/aks/azure.adoc"><i class="fa fa-github-alt"></i>&nbsp;Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/JGodin-C2C/devops-stack/edit/master/docs/modules/ROOT/pages/references/terraform_modules/kind/kind.adoc"><i class="fa fa-github-alt"></i>&nbsp;Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Azure AKS Terraform Module</h1>
+<h1 class="page">KinD Terraform Module</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <code>aks/azure</code> Terraform module provides a way to install and configure:</p>
+<p>The <code>kind/kind</code> Terraform module provides a way to install and configure:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>An AKS cluster</p>
+<p>A KinD cluster based on Docker</p>
 </li>
 <li>
 <p>The <a href="../argocd-helm.html" class="page">ArgoCD Helm</a> module</p>
@@ -362,66 +360,18 @@
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="requirement_terraform"></a> <a href="#requirement_terraform">terraform</a></p>
+<p><a id="requirement_docker"></a> <a href="#requirement_docker">docker</a></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>&gt;= 0.13</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="requirement_azuread"></a> <a href="#requirement_azuread">azuread</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>~&gt; 2.0</p>
+<p>~&gt; 2.15.0</p>
 </div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="requirement_azurerm"></a> <a href="#requirement_azurerm">azurerm</a></p>
+<p><a id="requirement_kind"></a> <a href="#requirement_kind">kind</a></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>~&gt; 2.62</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="requirement_helm"></a> <a href="#requirement_helm">helm</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>~&gt; 2.0</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="requirement_kubernetes"></a> <a href="#requirement_kubernetes">kubernetes</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>~&gt; 2.0</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="requirement_local"></a> <a href="#requirement_local">local</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>~&gt; 2.0</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="requirement_random"></a> <a href="#requirement_random">random</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>~&gt; 3.0</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="requirement_tls"></a> <a href="#requirement_tls">tls</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>~&gt; 3.0</p>
+<p>~&gt; 0.0.9</p>
 </div></div></td>
 </tr>
 </tbody>
@@ -445,18 +395,26 @@
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="provider_azuread"></a> <a href="#provider_azuread">azuread</a></p>
+<p><a id="provider_docker"></a> <a href="#provider_docker">docker</a></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>~&gt; 2.0</p>
+<p>~&gt; 2.15.0</p>
 </div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="provider_azurerm"></a> <a href="#provider_azurerm">azurerm</a></p>
+<p><a id="provider_kind"></a> <a href="#provider_kind">kind</a></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>~&gt; 2.62</p>
+<p>0.0.9</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="provider_kubernetes"></a> <a href="#provider_kubernetes">kubernetes</a></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>2.5.0</p>
 </div></div></td>
 </tr>
 <tr>
@@ -464,7 +422,15 @@
 <p><a id="provider_random"></a> <a href="#provider_random">random</a></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>~&gt; 3.0</p>
+<p>3.1.0</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="provider_tls"></a> <a href="#provider_tls">tls</a></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>3.1.0</p>
 </div></div></td>
 </tr>
 </tbody>
@@ -495,17 +461,6 @@
 <td class="tableblock halign-left valign-top"><div class="content"></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"></div></td>
 </tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="module_cluster"></a> <a href="#module_cluster">cluster</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Azure/aks/azurerm</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>4.13.0</p>
-</div></div></td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -527,7 +482,7 @@
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a href="https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application">azuread_application.oauth2_apps</a></p>
+<p><a href="https://registry.terraform.io/providers/kyma-incubator/kind/latest/docs/resources/cluster">kind_cluster.cluster</a></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>resource</p>
@@ -535,103 +490,7 @@
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a href="https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application_password">azuread_application_password.oauth2_apps</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>resource</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a href="https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/dns_cname_record">azurerm_dns_cname_record.wildcard</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>resource</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a href="https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kubernetes_cluster_node_pool">azurerm_kubernetes_cluster_node_pool.this</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>resource</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a href="https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/policy_assignment">azurerm_policy_assignment.baseline</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>resource</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a href="https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment">azurerm_role_assignment.dns_zone_contributor</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>resource</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a href="https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment">azurerm_role_assignment.managed_identity_operator</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>resource</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a href="https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment">azurerm_role_assignment.reader</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>resource</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a href="https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment">azurerm_role_assignment.virtual_machine_contributor</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>resource</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a href="https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account">azurerm_storage_account.this</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>resource</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a href="https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_container">azurerm_storage_container.loki</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>resource</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a href="https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/user_assigned_identity">azurerm_user_assigned_identity.cert_manager</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>resource</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a href="https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/user_assigned_identity">azurerm_user_assigned_identity.kube_prometheus_stack_prometheus</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>resource</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a href="https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/user_assigned_identity">azurerm_user_assigned_identity.this</a></p>
+<p><a href="https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password">random_password.clientsecret</a></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>resource</p>
@@ -647,7 +506,7 @@
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a href="https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string">random_string.storage_account</a></p>
+<p><a href="https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password">random_password.jdoe_password</a></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>resource</p>
@@ -655,7 +514,7 @@
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a href="https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/uuid">random_uuid.argocd_app_role</a></p>
+<p><a href="https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password">random_password.minio_accesskey</a></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>resource</p>
@@ -663,7 +522,7 @@
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a href="https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/uuid">random_uuid.resource_app_id</a></p>
+<p><a href="https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password">random_password.minio_secretkey</a></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>resource</p>
@@ -671,7 +530,23 @@
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a href="https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/client_config">azurerm_client_config.current</a></p>
+<p><a href="https://registry.terraform.io/providers/hashicorp/tls/latest/docs/resources/private_key">tls_private_key.root</a></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>resource</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a href="https://registry.terraform.io/providers/hashicorp/tls/latest/docs/resources/self_signed_cert">tls_self_signed_cert.root</a></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>resource</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a href="https://registry.terraform.io/providers/kreuzwerker/docker/latest/docs/data-sources/network">docker_network.kind</a></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>data source</p>
@@ -679,47 +554,7 @@
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a href="https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/dns_zone">azurerm_dns_zone.this</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>data source</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a href="https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/kubernetes_cluster">azurerm_kubernetes_cluster.cluster</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>data source</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a href="https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/policy_set_definition">azurerm_policy_set_definition.baseline</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>data source</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a href="https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/policy_set_definition">azurerm_policy_set_definition.restricted</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>data source</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a href="https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/resource_group">azurerm_resource_group.this</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>data source</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a href="https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subscription">azurerm_subscription.primary</a></p>
+<p><a href="https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/data-sources/secret">kubernetes_secret.keycloak_admin_password</a></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>data source</p>
@@ -750,74 +585,6 @@
 </tr>
 </thead>
 <tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="input_admin_group_object_ids"></a> <a href="#input_admin_group_object_ids">admin_group_object_ids</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>A list of Object IDs of Azure Active Directory Groups which should have Admin Role on the Cluster.</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>list(string)</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>[]</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>no</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="input_agents_count"></a> <a href="#input_agents_count">agents_count</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>The number of Agents that should exist in the Agent Pool. Please set <code>agents_count</code> <code>null</code> while <code>enable_auto_scaling</code> is <code>true</code> to avoid possible <code>agents_count</code> changes.</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>number</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>2</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>no</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="input_agents_max_pods"></a> <a href="#input_agents_max_pods">agents_max_pods</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>(Optional) The maximum number of pods that can run on each agent. Changing this forces a new resource to be created.</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>number</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>null</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>no</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="input_agents_size"></a> <a href="#input_agents_size">agents_size</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>The default virtual machine size for the Kubernetes agents</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>string</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>"Standard_D4s_v3"</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>no</p>
-</div></div></td>
-</tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p><a id="input_app_of_apps_values_overrides"></a> <a href="#input_app_of_apps_values_overrides">app_of_apps_values_overrides</a></p>
@@ -854,28 +621,6 @@
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="input_azureidentities"></a> <a href="#input_azureidentities">azureidentities</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Azure User Assigned Identities to create</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code>list(object({
-    namespace = string
-    name      = string
-  }))</code></pre>
-</div>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>[]</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>no</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p><a id="input_base_domain"></a> <a href="#input_base_domain">base_domain</a></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
@@ -885,10 +630,10 @@
 <p><code>string</code></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>n/a</p>
+<p><code>null</code></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>yes</p>
+<p>no</p>
 </div></div></td>
 </tr>
 <tr>
@@ -910,16 +655,16 @@
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="input_enable_velero"></a> <a href="#input_enable_velero">enable_velero</a></p>
+<p><a id="input_enable_minio"></a> <a href="#input_enable_minio">enable_minio</a></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Flag to enable velero</p>
+<p>Whether to enable minio object storage system</p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p><code>bool</code></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>false</code></p>
+<p><code>true</code></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>no</p>
@@ -995,57 +740,6 @@
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="input_kubernetes_version"></a> <a href="#input_kubernetes_version">kubernetes_version</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Specify which Kubernetes release to use.</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>string</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>"1.21.2"</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>no</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="input_network_policy"></a> <a href="#input_network_policy">network_policy</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Enable network policy for the azure CNI</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>string</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>null</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>no</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="input_node_pools"></a> <a href="#input_node_pools">node_pools</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>List of node pools with minimal configuration</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>map(any)</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>{}</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>no</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p><a id="input_oidc"></a> <a href="#input_oidc">oidc</a></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
@@ -1066,40 +760,6 @@
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p><code>null</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>no</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="input_os_disk_size_gb"></a> <a href="#input_os_disk_size_gb">os_disk_size_gb</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Disk size of nodes in GBs.</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>number</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>128</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>no</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="input_public_ssh_key"></a> <a href="#input_public_ssh_key">public_ssh_key</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>A custom ssh key to control access to the AKS cluster</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>string</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>""</code></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>no</p>
@@ -1141,23 +801,6 @@
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="input_resource_group_name"></a> <a href="#input_resource_group_name">resource_group_name</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>The Resource Group where the Managed Kubernetes Cluster should exist.</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>string</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>n/a</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>yes</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p><a id="input_target_revision"></a> <a href="#input_target_revision">target_revision</a></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
@@ -1171,46 +814,6 @@
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>no</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="input_velero"></a> <a href="#input_velero">velero</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Storage account used to configure backup and clusters synchronisation. More info here : http://</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code>object({
-    storage        = string
-    container      = string
-    resource_group = string
-  })</code></pre>
-</div>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>n/a</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>yes</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="input_vnet_subnet_id"></a> <a href="#input_vnet_subnet_id">vnet_subnet_id</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>The ID of a Subnet where the Kubernetes Node Pool should exist. Changing this forces a new resource to be created.</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>string</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>n/a</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>yes</p>
 </div></div></td>
 </tr>
 <tr>
@@ -1283,23 +886,7 @@
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="output_azureidentities"></a> <a href="#output_azureidentities">azureidentities</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Azure User Assigned Identities created</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p><a id="output_base_domain"></a> <a href="#output_base_domain">base_domain</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>n/a</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="output_cluster_id"></a> <a href="#output_cluster_id">cluster_id</a></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>n/a</p>
@@ -1315,10 +902,18 @@
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="output_kube_admin_config"></a> <a href="#output_kube_admin_config">kube_admin_config</a></p>
+<p><a id="output_jdoe_password"></a> <a href="#output_jdoe_password">jdoe_password</a></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>n/a</p>
+<p>The password of a regular user jdoe.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="output_keycloak_admin_password"></a> <a href="#output_keycloak_admin_password">keycloak_admin_password</a></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The password of Keycloak&#8217;s admin user.</p>
 </div></div></td>
 </tr>
 <tr>
@@ -1327,30 +922,6 @@
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>The content of the KUBECONFIG file.</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="output_kubelet_identity"></a> <a href="#output_kubelet_identity">kubelet_identity</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>n/a</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="output_node_resource_group"></a> <a href="#output_node_resource_group">node_resource_group</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>n/a</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="output_prometheus_user_assigned_identity_principal_id"></a> <a href="#output_prometheus_user_assigned_identity_principal_id">prometheus_user_assigned_identity_principal_id</a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>n/a</p>
 </div></div></td>
 </tr>
 <tr>
@@ -1383,7 +954,7 @@
 <script>
   window.antora = window.antora || {}
   window.antora.basePath = '../../../../..'
-  window.antora.pagePath = '/devops-stack/latest/references/terraform_modules/aks/azure.html'
+  window.antora.pagePath = '/devops-stack/latest/references/terraform_modules/kind/kind.html'
 </script>
 <script src="../../../../../_/js/site.js"></script>
 <script src="../../../../../_/js/vendor/lunr.js"></script>

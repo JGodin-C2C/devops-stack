@@ -90,6 +90,9 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../../howtos/quickstart_k3s_libvirt.html">K3s on Libvirt</a>
   </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../howtos/quickstart_kind.html">KinD</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
@@ -381,7 +384,7 @@ cluster Ingress Controller.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">traefik</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">object</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{"additionalArguments":["--metrics.prometheus=true","--serversTransport.insecureSkipVerify=true"],"deployment":{"replicas":2},"logs":{"access":{"enabled":true}}}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{"additionalArguments":["--metrics.prometheus=true","--serversTransport.insecureSkipVerify=true"],"deployment":{"replicas":2},"logs":{"access":{"enabled":true}},"tlsOptions":{"default":{"minVersion":"VersionTLS12"}}}</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Values passed to the traefik chart</p></td>
 </tr>
 </tbody>
