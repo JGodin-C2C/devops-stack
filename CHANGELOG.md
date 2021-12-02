@@ -1,5 +1,30 @@
 # Changelog
 
+## [0.49.0](https://www.github.com/JGodin-C2C/devops-stack/compare/v0.48.0...v0.49.0) (2021-12-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* **eks:** send http traffic on NLB to port 80 on cluster (#810)
+
+### Features
+
+* **docs:** improve KinD docs ([#820](https://www.github.com/JGodin-C2C/devops-stack/issues/820)) ([f5e3f2b](https://www.github.com/JGodin-C2C/devops-stack/commit/f5e3f2b07d59b24923c31c60eef18622f02fe546))
+* **keycloak:** pass a user list to keycloak ([#788](https://www.github.com/JGodin-C2C/devops-stack/issues/788)) ([c2835ec](https://www.github.com/JGodin-C2C/devops-stack/commit/c2835ecaba5ffb02908fa77049cffecb976787e3))
+* **kind:** add experimental support for KIND ([#785](https://www.github.com/JGodin-C2C/devops-stack/issues/785)) ([518e3e6](https://www.github.com/JGodin-C2C/devops-stack/commit/518e3e6885082429298607314215e15fcacb0d07))
+* **sks:** add output for cluster security group id ([#816](https://www.github.com/JGodin-C2C/devops-stack/issues/816)) ([108dcb2](https://www.github.com/JGodin-C2C/devops-stack/commit/108dcb28ded4beb1ac76657b832b0fe8f3cbf832))
+* **traefik:** tls version >= 1.2 ([#793](https://www.github.com/JGodin-C2C/devops-stack/issues/793)) ([c49580e](https://www.github.com/JGodin-C2C/devops-stack/commit/c49580efa834d1a5001abb18f0d9cf120970efc3))
+* **velero,k3s:** Add velero deployment for k3s ([3fea84d](https://www.github.com/JGodin-C2C/devops-stack/commit/3fea84d51e3e9598251b03ff633419d3b61fbf0f))
+* **velero:** Add azure configuration for velero ([e4a9aa4](https://www.github.com/JGodin-C2C/devops-stack/commit/e4a9aa41460408ccb1f9059c5623df3854c64e55))
+* **velero:** move velero variable to top ([d30dda7](https://www.github.com/JGodin-C2C/devops-stack/commit/d30dda70430aed8424b7236e4af7a3beff2d715f))
+
+
+### Bug Fixes
+
+* **argocd:** fix kube-prometheus-stack dependency on OIDC ([#795](https://www.github.com/JGodin-C2C/devops-stack/issues/795)) ([5848af8](https://www.github.com/JGodin-C2C/devops-stack/commit/5848af8970a8c273b8243fae3f5dd98167af17d2))
+* **eks:** keycloak admin pass output when not installed ([#817](https://www.github.com/JGodin-C2C/devops-stack/issues/817)) ([96cd02c](https://www.github.com/JGodin-C2C/devops-stack/commit/96cd02cc9f1cd68bb39cfbf8c0cd6a93b85d6e90))
+* **eks:** send http traffic on NLB to port 80 on cluster ([#810](https://www.github.com/JGodin-C2C/devops-stack/issues/810)) ([0cbd0eb](https://www.github.com/JGodin-C2C/devops-stack/commit/0cbd0eb05fcb818a623fa70489ad6b5f9302198b))
+
 ## [0.49.0](https://www.github.com/camptocamp/devops-stack/compare/v0.48.0...v0.49.0) (2021-11-19)
 
 
