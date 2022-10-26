@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.60.0](https://github.com/JGodin-C2C/devops-stack/compare/v0.59.3...v0.60.0) (2022-10-26)
+
+
+### Features
+
+* change version on the variable file ([71d37dd](https://github.com/JGodin-C2C/devops-stack/commit/71d37dd8422d9e74028237caf9e393d88ff41a0b))
+* Loki is not the default datasource ([33646ac](https://github.com/JGodin-C2C/devops-stack/commit/33646acefddab2003fbd4b8256be07f688aaaed4))
+* **traefik:** allow disabling of dashboard's ingress and auth ([f310e28](https://github.com/JGodin-C2C/devops-stack/commit/f310e28b7da6256e25969f1eba63321400c16d37))
+
 ## [0.59.3](https://github.com/camptocamp/devops-stack/compare/v0.59.2...v0.59.3) (2022-10-13)
 
 
